@@ -1,0 +1,213 @@
+:root {
+  /* 默认主题 (light) */
+  --primary-color: #1890ff; /* 主色调 */
+  --background-color: #f5f6fa; /* 页面背景色 */
+  --content-background-color: #fff; /* 内容区背景色 */
+  --text-color: #333; /* 主要文本颜色 */
+  --secondary-text-color: #666; /* 次要文本颜色 */
+  --border-color: #f0f0f0; /* 边框颜色 */
+  --sidebar-background-color: #222d32; /* 侧边栏背景色 (暗色) */
+  --sidebar-text-color: #fff; /* 侧边栏文本颜色 (白色) */
+  --sidebar-active-bg: #36414b; /* 侧边栏悬停/活跃背景色 (调整为更明显) */
+  --sidebar-selected-item-bg: #1890ff; /* 侧边栏选中背景色 (蓝色) */
+  --sidebar-selected-item-text-color: #fff; /* 侧边栏选中字体颜色 (白色) */
+  --header-background-color: #fff; /* 头部背景色 */
+  --header-text-color: #333; /* 头部文本颜色 */
+
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark; /* 允许根据系统偏好切换 */
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 暗黑主题 */
+body.theme-dark {
+  --primary-color: #1890ff; /* 主色调保持 (蓝色) */
+  --background-color: #0d1117; /* 暗黑页面背景 */
+  --content-background-color: #161b22; /* 暗黑内容区背景 */
+  --text-color: #c9d1d9; /* 暗黑主要文本 */
+  --secondary-text-color: #8b949e; /* 暗黑次要文本 */
+  --border-color: #30363d; /* 暗黑边框颜色 */
+  --sidebar-background-color: #0d1117; /* 侧边栏背景色 */
+  --sidebar-text-color: #c9d1d9; /* 侧边栏文本颜色 */
+  --sidebar-active-bg: #161b22; /* 侧边栏悬停/活跃背景色 */
+  --sidebar-selected-item-bg: #1890ff; /* 侧边栏选中背景色 (蓝色) */
+  --sidebar-selected-item-text-color: #fff; /* 侧边栏选中字体颜色 (白色) */
+  --header-background-color: #161b22; /* 头部背景色 */
+  --header-text-color: #c9d1d9; /* 头部文本颜色 */
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--background-color); /* 应用页面背景色变量 */
+  color: var(--text-color); /* 应用文本颜色变量 */
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+a {
+  font-weight: 500;
+  color: var(--primary-color); /* 应用主色调 */
+  text-decoration: inherit;
+}
+a:hover {
+  color: var(--primary-color); /* 悬停颜色 */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-color); /* 应用主要文本颜色 */
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--content-background-color); /* 应用内容区背景色 */
+  color: var(--text-color); /* 应用文本颜色 */
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: var(--primary-color); /* 应用主色调 */
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto var(--primary-color); /* 应用主色调 */
+}
+
+/* Layout 相关的样式应用变量 */
+.main-header {
+  background: var(--header-background-color); /* 应用头部背景色 */
+  color: var(--header-text-color); /* 应用头部文本颜色 */
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  z-index: 10;
+}
+
+.site-layout {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.main-content {
+  overflow: auto;
+  background: var(--background-color); /* 应用页面背景色 */
+  padding: 24px;
+  flex-grow: 1;
+  min-height: 0;
+}
+
+/* 侧边栏样式应用变量 (SideMenu.scss 已合并) */
+.side-menu {
+  background: var(--sidebar-background-color) !important; /* antd Menu 背景 */
+}
+
+.side-menu .ant-menu-item, 
+.side-menu .ant-menu-submenu-title {
+  color: var(--sidebar-text-color) !important; /* 菜单项文本颜色 */
+}
+
+.side-menu .ant-menu-item:hover, /* 菜单项悬停 */
+.side-menu .ant-menu-submenu-title:hover, /* 子菜单标题悬停 */
+.side-menu .ant-menu-submenu-open > .ant-menu-submenu-title /* 子菜单展开时标题 */ {
+  background: var(--sidebar-active-bg) !important; /* 菜单项悬停/活跃背景 */
+}
+
+.side-menu .ant-menu-item-selected {
+  background: var(--sidebar-selected-item-bg) !important; /* 菜单项选中背景 */
+  color: var(--sidebar-selected-item-text-color) !important; /* 菜单项选中字体颜色 */
+}
+
+.side-menu .ant-menu-submenu-selected > .ant-menu-submenu-title {
+   color: var(--sidebar-selected-item-text-color) !important; /* 子菜单标题选中颜色 */
+}
+
+/* Logo区域样式应用变量 */
+.side-menu-logo {
+  background: var(--content-background-color) !important; /* logo背景 */
+  color: var(--primary-color) !important; /* logo文本颜色 */
+}
+
+/* Home页面样式应用变量 */
+.home-container {
+  background: var(--background-color); /* 页面背景 */
+  color: var(--text-color); /* 文本颜色 */
+}
+
+.home-container h1 {
+  color: var(--primary-color); /* 主色调 */
+}
+
+.home-desc,
+.home-info-content {
+  color: var(--secondary-text-color); /* 次要文本颜色 */
+}
+
+.home-info-item {
+  background: var(--content-background-color); /* 内容区背景 */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* 阴影根据背景调整，这里保持 */
+  border: 1px solid var(--border-color); /* 边框 */
+}
+
+/* Dashboard页面样式应用变量 */
+.dashboard-container {
+  background: var(--background-color); /* 页面背景 */
+  color: var(--text-color); /* 文本颜色 */
+}
+
+.dashboard-info-item {
+  background: var(--content-background-color); /* 内容区背景 */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border: 1px solid var(--border-color); /* 边框 */
+}
+
+.dashboard-info-label {
+  color: var(--secondary-text-color); /* 次要文本颜色 */
+}
+
+.dashboard-info-value {
+  color: var(--primary-color); /* 主色调 */
+}
+
+.dashboard-chart {
+  background: var(--content-background-color); /* 内容区背景 */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border: 1px solid var(--border-color); /* 边框 */
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+
+  a:hover {
+    color: #747bff;
+  }
+
+  button {
+    background-color: #f9f9f9;
+  }
+} 

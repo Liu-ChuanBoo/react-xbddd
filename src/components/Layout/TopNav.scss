@@ -1,0 +1,26 @@
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.system-title {
+  font-weight: bold;
+  font-size: 18px;
+  flex: 1;
+}
+  .trigger {
+    cursor: pointer;
+  }
+.user-info {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px;
+  color: #888;
+} 
+.user-info-dropdown {
+  float: right;
+}

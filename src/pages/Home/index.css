@@ -1,0 +1,35 @@
+.home-container {
+  padding: 40px 32px;
+  background: #f5f6fa;
+  min-height: 100vh;
+}
+.home-container h1 {
+  font-size: 2.2rem;
+  color: #1890ff;
+  margin-bottom: 12px;
+}
+.home-desc {
+  color: #666;
+  margin-bottom: 32px;
+}
+.home-info-list {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.home-info-item {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  padding: 24px 32px;
+  min-width: 220px;
+  flex: 1 1 220px;
+}
+.home-info-title {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+}
+.home-info-content {
+  color: #888;
+} 
