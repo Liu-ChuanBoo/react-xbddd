@@ -85,16 +85,16 @@ const SideMenu = () => {
         <AppstoreOutlined style={{fontSize: 24, marginRight: collapsed ? 0 : 12}} />
         {showLogoText && <span>测试系统</span>}
       </div>
-      <Menu
-        theme="dark"
-        mode="inline"
-        selectedKeys={[location.pathname]}
+    <Menu
+      theme="dark"
+      mode="inline"
+      selectedKeys={[location.pathname]}
         openKeys={openKeys}
         onOpenChange={setOpenKeys}
-        items={items}
-        onClick={({ key }) => navigate(key)}
-        className="side-menu"
-      />
+      items={items}
+      onClick={({ key }) => navigate(key)}
+      className="side-menu"
+    />
     </div>
   );
 };

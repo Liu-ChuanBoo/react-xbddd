@@ -11,7 +11,7 @@ export default defineConfig(({ mode }) => {
   // console.log('API URL from .env:', env.VITE_API_URL)
 
   return {
-    plugins: [react()],
+  plugins: [react()],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),

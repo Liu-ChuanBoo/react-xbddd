@@ -35,12 +35,12 @@ const TopNav = () => {
           onClick={() => navigate('/settings')}
           style={{cursor: 'pointer'}}
         />
-        <Dropdown menu={{ items: menuItems }} placement="bottomRight" className='user-info-dropdown'>
-          <div className="user-info">
-            <Avatar icon={<UserOutlined />} style={{ marginRight: 8 }} />
-            <span>admin</span>
-          </div>
-        </Dropdown>
+      <Dropdown menu={{ items: menuItems }} placement="bottomRight" className='user-info-dropdown'>
+        <div className="user-info">
+          <Avatar icon={<UserOutlined />} style={{ marginRight: 8 }} />
+          <span>admin</span>
+        </div>
+      </Dropdown>
       </div>
     </div>
   );

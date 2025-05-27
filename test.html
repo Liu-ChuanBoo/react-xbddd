@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Log Component</title>
+    <!-- 引入 Ant Design 样式，如果 Log 组件使用了 Ant Design 组件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/antd/dist/antd.min.css">
+    <link rel="stylesheet" href="rollup/log.css">
+</head>
+
+<body>
+    <div id="log-container"></div>
+
+    <div>
+        <button id="fetch-logs-button">点击获取新日志</button>
+    </div>
+
+    <!-- 引入 React 和 ReactDOM -->
+    <script src="https://cdn.jsdelivr.net/npm/react/umd/react.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.production.min.js"></script>
+
+    <!-- 引入打包好的 Log 组件 JS 文件 -->
+    <script src="rollup/log.js"></script>
+
+    <script>
+        // 使用 React 18+ 的 createRoot 渲染组件
+        const container = document.getElementById('log-container');
+        const button = document.getElementById('fetch-logs-button');
+
+        // 创建 React root，如果容器存在
+        let root = null;
+        if (container) {
+            root = ReactDOM.createRoot(container);
+        }
+
+        // 定义处理导出数据的函数
+        const handleLogDataExport = (data) => {
+            console.log('Data received from LogComponent:', data);
+            // 在这里处理接收到的数据，比如显示在页面上或者进行其他操作
+            alert('接收到日志数据，请查看控制台！'); // 简单的提示
+        };
+
+        // 初始渲染，从本地存储获取 token，并传递 onDataExport 回调
+        const initialToken = localStorage.getItem('yourAuthTokenKey');
+        if (root) {
+            console.log('执行了一次');
+
+            root.render(React.createElement(LogComponent, {
+                token: initialToken,
+                onDataExport: handleLogDataExport // 传递回调函数
+            }));
+        }
+        console.log(root);
+
+        // 添加按钮点击事件监听器
+        if (button && root) {
+            button.addEventListener('click', () => {
+                // 模拟获取一个新的 token
+                const newToken = 'new_token_' + Date.now();
+                console.log('Button clicked, fetching with new token:', newToken);
+
+                // 使用新的 token 重新渲染 LogComponent，并继续传递 onDataExport 回调
+                root.render(React.createElement(LogComponent, {
+                    token: newToken,
+                    onDataExport: handleLogDataExport // 继续传递回调函数
+                }));
+            });
+        }
+    </script>
+</body>
+
+</html>
