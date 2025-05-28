@@ -1,5 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Layout from './components/Layout';
+import { BrowserRouter} from 'react-router-dom';
 import AppRoutes from './routes';
 import { ThemeProvider } from './contexts/ThemeContext';
 

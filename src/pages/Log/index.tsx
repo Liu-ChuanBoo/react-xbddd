@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Table from '../..//components/Table';
 // import { mockLogs } from '@/mock'; // 移除 mock 数据导入
 import "./log.scss";
@@ -18,48 +18,32 @@ interface LogManagementProps {
   onDataExport?: (data: LogData[]) => void;
 }
 
+import useFetchData from '../../hooks/useFetchData';
+
 // 修改组件定义，接收 props
 export default function LogManagement({ token, onDataExport }: LogManagementProps) {
-  // 使用 LogData 接口定义 logs 状态的类型
-  const [logs, setLogs] = useState<LogData[]>([]); // 使用状态存储真实数据
-  const [loading, setLoading] = useState(true); // 添加加载状态
+  const { data: logs, loading, error, fetchData } = useFetchData<LogData[]>();
 
-  // 模拟异步数据请求
+  // 使用 useEffect 在 token 变化时触发数据请求
   useEffect(() => {
     if (token) {
-      setLoading(true);
-      console.log('Using token to fetch logs:', token); // 打印 token 验证
-      // 模拟 API 调用，实际中替换为你的 fetch 调用
-      const fakeFetch = (): Promise<LogData[]> => { // 更新 fakeFetch 的返回类型
-        return new Promise(resolve => {
-          setTimeout(() => {
-            // 模拟一些数据返回
-            const fetchedData: LogData[] = [
-              { id: 1, type: '系统', action: '登录', user: 'admin', time: '2023-10-26 10:00:00' },
-              { id: 2, type: '用户', action: '新增', user: 'test', time: '2023-10-26 10:05:00' },
-            ];
-            resolve(fetchedData);
-          }, 1000); // 模拟网络延迟 1 秒
-        });
-      };
-
-      fakeFetch()
-        .then((data) => { // 这里的 data 类型会自动推断为 LogData[]
-          setLogs(data);
-          setLoading(false);
-        })
-        .catch(error => {
-          console.error("Failed to fetch logs:", error);
-          setLoading(false);
-          setLogs([]); // 清空数据或显示错误信息
-        });
+      // 替换为你的实际 API 地址
+      fetchData('/api/logs', { token });
     } else {
-      // 如果没有 token，可能需要提示用户登录或不加载数据
+      // 如果没有 token，可以在这里处理，例如清空数据或显示提示
+      // fetchData(null); // 如果 Hook 支持清空数据的方法
       console.warn("Token is missing, cannot fetch logs.");
-      setLoading(false);
-      setLogs([]); // 清空数据
     }
-  }, [token]); // 当 token 变化时重新运行 effect
+  }, [token, fetchData]);
+
+  // 可以在这里处理 error 状态，例如显示错误信息
+  useEffect(() => {
+    if (error) {
+      console.error("Error fetching logs:", error);
+      // 例如，显示一个错误提示给用户
+      // alert(`加载日志失败: ${error.message}`);
+    }
+  }, [error]);
 
   const columns = [
     { title: 'ID', dataIndex: 'id', key: 'id' },
@@ -71,10 +55,10 @@ export default function LogManagement({ token, onDataExport }: LogManagementProp
 
   // 按钮点击事件处理函数
   const handleExportClick = () => {
-    // 如果 onDataExport 回调存在，则调用它并传递当前日志数据
-    if (onDataExport) {
+    // 确保 logs 存在且 onDataExport 回调存在
+    if (onDataExport && logs) {
       console.log('Export button clicked, passing data to outer HTML:', logs);
-      onDataExport(logs);
+      onDataExport(logs); // 现在 logs 确定是 LogData[] 类型
     }
   };
 
@@ -82,10 +66,12 @@ export default function LogManagement({ token, onDataExport }: LogManagementProp
     <div className='log-content'>
       <h1>日志管理</h1>
       {/* 添加一个导出数据的按钮 */}
-      <button onClick={handleExportClick} disabled={loading || logs.length === 0}>导出日志数据</button>
+      <button onClick={handleExportClick} disabled={loading || !logs || logs.length === 0}>导出日志数据</button>
       {loading ? (
         <p>加载中...</p> // 显示加载状态
-      ) : logs.length > 0 ? (
+      ) : error ? (
+        <p>加载日志失败: {error.message}</p> // 显示错误信息
+      ) : logs && logs.length > 0 ? (
         <Table columns={columns} dataSource={logs} rowKey="id" /> // 使用从 API 获取的数据
       ) : (
         <p>没有日志数据可显示。</p>
